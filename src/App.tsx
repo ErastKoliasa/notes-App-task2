@@ -1,9 +1,10 @@
+import TableContainer from "./components/Tables/TablesContainer";
 import './App.css';
 
 function App() {
   return (
-    <div >
-      
+    <div className="container">
+      <TableContainer />
     </div>
   );
 }
