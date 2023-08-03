@@ -1,0 +1,53 @@
+.modal {
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(0, 0, 0, 0.4);
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.5s;
+}
+
+.modal.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.modal__content {
+    padding: 20px;
+    border-radius: 12px;
+    background-color: #fff;
+    transform: scale(0.5);
+    transition: 0.4s all;
+    width: 50vw;
+}
+
+.modal__content.active {
+    transform: scale(1);
+}
+
+.modal__noteForm-edit,
+.modal__noteForm-add {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+.modal__noteForm-edit, label,
+.modal__noteForm-edit, input,
+.modal__noteForm-edit, textarea,
+.modal__noteForm-edit, select,
+.modal__noteForm-edit, button,
+.modal__noteForm-add label,
+.modal__noteForm-add input,
+.modal__noteForm-add textarea,
+.modal__noteForm-add select,
+.modal__noteForm-add button {
+    margin-bottom: 10px;
+    padding: 5px;
+}
