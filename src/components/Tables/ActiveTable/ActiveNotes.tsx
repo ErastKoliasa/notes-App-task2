@@ -53,32 +53,32 @@ const ActiveNotes: React.FC<ActiveNotesProps> = ({
 
   return (
     <div>
-      <h1>Active Notes</h1>
-      <table>
-        <thead>
+      <h1 className="my-10 text-4xl text-pink-700 text-center font-bold">Active Notes</h1>
+      <table className="border-collapse w-full">
+        <thead className="text-center text-white bg-rose-500">
           <tr>
-            <th>Name</th>
-            <th>Created</th>
-            <th>Content</th>
-            <th>Category</th>
-            <th>Dates</th>
-            <th>Actions</th>
+            <th className="p-2">Name</th>
+            <th className="p-2">Created</th>
+            <th className="p-2">Content</th>
+            <th className="p-2">Category</th>
+            <th className="p-2">Dates</th>
+            <th className="p-2">Actions</th>
           </tr>
         </thead>
         <tbody>
           {notes.map((note) => {
             if (!note.archived) {
               return (
-                <tr key={note.id}>
+                <tr key={note.id} className="text-center bg-rose-200 hover:bg-rose-100">
                   <td>{note.name}</td>
                   <td>{note.time}</td>
                   <td>{note.content}</td>
                   <td>{note.category}</td>
                   <td>{note.datesMentioned.map((date) => `${date} `)}</td>
-                  <td className="actions">
-                    <button onClick={() => handleEdit(note.id)}>Edit</button>
-                    <button onClick={() => handleDelete(note.id)}>Delete</button>
-                    <button onClick={() => handleArchive(note.id)}>Archive</button>
+                  <td className="flex flex-col">
+                    <button onClick={() => handleEdit(note.id)} className="mt-1 mr-1.5 bg-gradient-to-r from-pink-500 to-yellow-500 text-white text-center rounded-md">Edit</button>
+                    <button onClick={() => handleDelete(note.id)} className="mt-1 mr-1.5 bg-gradient-to-r from-pink-500 to-yellow-500 text-white text-center rounded-md">Delete</button>
+                    <button onClick={() => handleArchive(note.id)} className="mt-1 mr-1.5 bg-gradient-to-r from-pink-500 to-yellow-500 text-white text-center rounded-md">Archive</button>
                   </td>
                 </tr>
               );
@@ -89,20 +89,25 @@ const ActiveNotes: React.FC<ActiveNotesProps> = ({
       </table>
 
       <Modal active={modalActive}>
-        <h2>Edit a Note</h2>
+        <h2 className="text-2xl m-3 text-pink-700 text-center font-bold">Edit a Note</h2>
         <form onSubmit={handleSubmit} className="modal__noteForm-edit">
           <label htmlFor="noteName">Name:</label>
-          <input type="text" id="noteName" value={note.name} onChange={handleChangeName} required />
+          <input type="text" id="noteName" value={note.name} onChange={handleChangeName} required className="px-3 py-2 border border-slate-400 rounded-md text-sm shadow-sm 
+                      focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 
+                      focus:invalid:border-pink-500 focus:invalid:ring-pink-500"/>
           <label htmlFor="noteContent">Content:</label>
-          <textarea name="noteContent" id="noteContent" value={note.content} onChange={handleChangeContent} required></textarea>
+          <textarea name="noteContent" id="noteContent" value={note.content} onChange={handleChangeContent} required className="px-3 py-2  border border-slate-400 rounded-md text-sm shadow-sm 
+                      focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500
+                      focus:invalid:border-pink-500 focus:invalid:ring-pink-500"></textarea>
           <label htmlFor="noteCategory">Category:</label>
-          <select name="noteCategory" id="noteCategory" value={note.category} onChange={handleChangeCategory} required>
+          <select name="noteCategory" id="noteCategory" value={note.category} onChange={handleChangeCategory} required className="px-3 py-2 border border-slate-400 rounded-md text-sm shadow-sm 
+                      focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500">
             <option value="Task">Task</option>
             <option value="Random Thought">Random Thought</option>
             <option value="Idea">Idea</option>
           </select>
-          <input type="submit" value="Submit" />
-          <button onClick={handleClose}>Close</button>
+          <input type="submit" value="Submit" className="mt-3 bg-gradient-to-r from-pink-500 to-yellow-500 text-white text-center font-bold rounded-md cursor-pointer"/>
+          <button onClick={handleClose} className="mt-1 bg-gradient-to-r from-pink-500 to-yellow-500 text-white text-center font-bold rounded-md">Close</button>
         </form>
         
       </Modal>

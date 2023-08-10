@@ -9,13 +9,13 @@ const SummaryTable: React.FC<SummaryTableProps> = ({ notes }) => {
   const categories = ["Task", "Random Thought", "Idea"];
   return (
     <div>
-      <h1>Summary</h1>
-      <table>
-        <thead>
+      <h1 className="my-10 text-4xl text-yellow-500 text-center font-bold">Summary</h1>
+      <table className="border-collapse w-full">
+        <thead className="text-center text-white bg-yellow-300">
           <tr>
-            <th>Note Category</th>
-            <th>Active</th>
-            <th>Archived</th>
+            <th className="p-2">Note Category</th>
+            <th className="p-2">Active</th>
+            <th className="p-2">Archived</th>
           </tr>
         </thead>
         <tbody>
@@ -23,7 +23,7 @@ const SummaryTable: React.FC<SummaryTableProps> = ({ notes }) => {
             const activeCount = notes.filter((note) => note.category === category && !note.archived).length;
             const archivedCount = notes.filter((note) => note.category === category && note.archived).length;
             return (
-              <tr key={category}>
+              <tr key={category} className="text-center bg-amber-100 hover:bg-yellow-50">
                 <td>{category}</td>
                 <td>{activeCount}</td>
                 <td>{archivedCount}</td>
