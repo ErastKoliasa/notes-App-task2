@@ -1,6 +1,5 @@
 import React from "react";
 import { Note } from "../../../redux/action";
-import "./archived.css"
 
 interface ArchivedNotesProps {
   notes: Note[];
@@ -11,31 +10,31 @@ interface ArchivedNotesProps {
 const ArchivedNotes: React.FC<ArchivedNotesProps> = ({ notes, handleDelete, handleArchive }) => {
   return (
     <div>
-      <h1>Archive Notes</h1>
-      <table>
-        <thead>
+      <h1 className="my-10 text-4xl text-orange-600 text-center font-bold">Archive Notes</h1>
+      <table className="border-collapse w-full">
+        <thead className="text-center text-white bg-orange-400">
           <tr>
-            <th>Name</th>
-            <th>Created</th>
-            <th>Content</th>
-            <th>Category</th>
-            <th>Dates</th>
-            <th>Actions</th>
+            <th className="p-2">Name</th>
+            <th className="p-2">Created</th>
+            <th className="p-2">Content</th>
+            <th className="p-2">Category</th>
+            <th className="p-2">Dates</th>
+            <th className="p-2">Actions</th>
           </tr>
         </thead>
         <tbody>
           {notes.map((note) => {
             if (note.archived) {
               return (
-                <tr key={note.id} className="archived">
-                  <td>{note.name}</td>
-                  <td>{note.time}</td>
-                  <td>{note.content}</td>
-                  <td>{note.category}</td>
-                  <td>{note.datesMentioned.map((date) => `${date} `)}</td>
-                  <td className="actions">
-                    <button onClick={() => handleDelete(note.id)}>Delete</button>
-                    <button onClick={() => handleArchive(note.id)}>Unarchive</button>
+                <tr key={note.id} className="text-center bg-orange-200 hover:bg-orange-100">
+                  <td className="line-through">{note.name}</td>
+                  <td className="line-through">{note.time}</td>
+                  <td className="line-through">{note.content}</td>
+                  <td className="line-through">{note.category}</td>
+                  <td className="line-through">{note.datesMentioned.map((date) => `${date} `)}</td>
+                  <td className="flex flex-col">
+                    <button onClick={() => handleDelete(note.id)} className="mt-1 mr-1.5 bg-gradient-to-r from-yellow-500 to-pink-500 text-white text-center rounded-md">Delete</button>
+                    <button onClick={() => handleArchive(note.id)} className="mt-1 mr-1.5 bg-gradient-to-r from-yellow-500 to-pink-500 text-white text-center rounded-md">Unarchive</button>
                   </td>
                 </tr>
               );

@@ -7,7 +7,6 @@ import Modal from "../Modal/Modal";
 import { Note } from "../../redux/action";
 import SummaryTable from "./SummaryTable/SummaryTable";
 import { NotesState } from "../../redux/reducer";
-import "./Tables.css"
 
 const TableContainer = () => {
   const notes = useSelector((state: NotesState) => state.notes);
@@ -105,26 +104,31 @@ const TableContainer = () => {
         handleChangeCategory={handleChangeCategory}
         cleanField={cleanField}
       />
-      <div className="button__noteAdd-wrapper">
-        <button onClick={handleAdd} className="button__note-add ">Add Note</button>
+      <div className="grid place-content-end">
+        <button onClick={handleAdd} className="m-5 p-3 bg-gradient-to-r from-pink-500 to-yellow-500 text-white text-center font-bold rounded-md">Add Note</button>
       </div>
       <ArchivedNotes notes={notes} handleDelete={handleDelete} handleArchive={handleArchive} />
       <SummaryTable notes={notes} />
       <Modal active={modalActive}>
-        <h2>Add a Note</h2>
+        <h2 className="text-2xl m-3 text-pink-700 text-center font-bold">Add a Note</h2>
         <form onSubmit={handleAddNote} className="modal__noteForm-add">
           <label htmlFor="noteName">Name:</label>
-          <input type="text" id="noteName" value={note.name} onChange={handleChangeName} required />
+          <input type="text" id="noteName" value={note.name} onChange={handleChangeName} required className="px-3 py-2 border border-slate-400 rounded-md text-sm shadow-sm 
+                      focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 
+                      focus:invalid:border-pink-500 focus:invalid:ring-pink-500"/>
           <label htmlFor="noteContent">Content:</label>
-          <textarea name="noteContent" id="noteContent" value={note.content} onChange={handleChangeContent} required></textarea>
+          <textarea name="noteContent" id="noteContent" value={note.content} onChange={handleChangeContent} required className="px-3 py-2  border border-slate-400 rounded-md text-sm shadow-sm 
+                      focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500
+                      focus:invalid:border-pink-500 focus:invalid:ring-pink-500"></textarea>
           <label htmlFor="noteCategory">Category:</label>
-          <select name="noteCategory" id="noteCategory" value={note.category} onChange={handleChangeCategory} required>
+          <select name="noteCategory" id="noteCategory" value={note.category} onChange={handleChangeCategory} required className="px-3 py-2 border border-slate-400 rounded-md text-sm shadow-sm 
+                      focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500">
             <option value="Task">Task</option>
             <option value="Random Thought">Random Thought</option>
             <option value="Idea">Idea</option>
           </select>
-          <input type="submit" value="Add" />
-          <button onClick={handleClose}>Close</button>
+          <input type="submit" value="Add" className="mt-3 bg-gradient-to-r from-pink-500 to-yellow-500 text-white text-center font-bold rounded-md cursor-pointer" />
+          <button onClick={handleClose} className="mt-1 bg-gradient-to-r from-pink-500 to-yellow-500 text-white text-center font-bold rounded-md">Close</button>
         </form>
       </Modal>
     </div>
