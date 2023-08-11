@@ -7,6 +7,7 @@ import Modal from "../Modal/Modal";
 import { Note } from "../../redux/action";
 import SummaryTable from "./SummaryTable/SummaryTable";
 import { NotesState } from "../../redux/reducer";
+import Button from "../Buttons/Button";
 
 const TableContainer = () => {
   const notes = useSelector((state: NotesState) => state.notes);
@@ -21,6 +22,8 @@ const TableContainer = () => {
     archived: false,
   });
   const dispatch = useDispatch();
+  const buttonStyle: string = "m-5 p-3 bg-gradient-to-r from-pink-500 to-yellow-500 text-white text-center font-bold rounded-md";
+  const buttonModalStyle: string = "mt-1 bg-gradient-to-r from-pink-500 to-yellow-500 text-white text-center font-bold rounded-md cursor-pointer"
 
   const cleanField = () => {
     setNote({
@@ -105,7 +108,7 @@ const TableContainer = () => {
         cleanField={cleanField}
       />
       <div className="grid place-content-end">
-        <button onClick={handleAdd} className="m-5 p-3 bg-gradient-to-r from-pink-500 to-yellow-500 text-white text-center font-bold rounded-md">Add Note</button>
+        <Button onClick={handleAdd} className={buttonStyle}>Add Note</Button>
       </div>
       <ArchivedNotes notes={notes} handleDelete={handleDelete} handleArchive={handleArchive} />
       <SummaryTable notes={notes} />
@@ -127,8 +130,8 @@ const TableContainer = () => {
             <option value="Random Thought">Random Thought</option>
             <option value="Idea">Idea</option>
           </select>
-          <input type="submit" value="Add" className="mt-3 bg-gradient-to-r from-pink-500 to-yellow-500 text-white text-center font-bold rounded-md cursor-pointer" />
-          <button onClick={handleClose} className="mt-1 bg-gradient-to-r from-pink-500 to-yellow-500 text-white text-center font-bold rounded-md">Close</button>
+          <input type="submit" value="Add" className={buttonModalStyle} />
+          <Button onClick={handleClose} className={buttonModalStyle}>Close</Button>
         </form>
       </Modal>
     </div>

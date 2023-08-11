@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { editNote, Note } from "../../../redux/action";
 import Modal from "../../Modal/Modal";
+import Button from "../../Buttons/Button";
 
 interface ActiveNotesProps {
   notes: Note[];
@@ -28,6 +29,8 @@ const ActiveNotes: React.FC<ActiveNotesProps> = ({
 }) => {
   const [modalActive, setModalActive] = useState(false);
   const dispatch = useDispatch();
+  const buttonStyle: string = "mt-1 mr-1.5 bg-gradient-to-r from-pink-500 to-yellow-500 text-white text-center rounded-md";
+  const buttonModalStyle: string = "mt-1 bg-gradient-to-r from-pink-500 to-yellow-500 text-white text-center font-bold rounded-md cursor-pointer"
 
   const handleEdit = (id: number) => {
     const currentNote = notes.find((note) => note.id === id);
@@ -76,9 +79,9 @@ const ActiveNotes: React.FC<ActiveNotesProps> = ({
                   <td>{note.category}</td>
                   <td>{note.datesMentioned.map((date) => `${date} `)}</td>
                   <td className="flex flex-col">
-                    <button onClick={() => handleEdit(note.id)} className="mt-1 mr-1.5 bg-gradient-to-r from-pink-500 to-yellow-500 text-white text-center rounded-md">Edit</button>
-                    <button onClick={() => handleDelete(note.id)} className="mt-1 mr-1.5 bg-gradient-to-r from-pink-500 to-yellow-500 text-white text-center rounded-md">Delete</button>
-                    <button onClick={() => handleArchive(note.id)} className="mt-1 mr-1.5 bg-gradient-to-r from-pink-500 to-yellow-500 text-white text-center rounded-md">Archive</button>
+                    <Button onClick={() => handleEdit(note.id)} className={buttonStyle}>Edit</Button>
+                    <Button onClick={() => handleDelete(note.id)} className={buttonStyle}>Delete</Button>
+                    <Button onClick={() => handleArchive(note.id)} className={buttonStyle}>Archive</Button>
                   </td>
                 </tr>
               );
@@ -106,8 +109,8 @@ const ActiveNotes: React.FC<ActiveNotesProps> = ({
             <option value="Random Thought">Random Thought</option>
             <option value="Idea">Idea</option>
           </select>
-          <input type="submit" value="Submit" className="mt-3 bg-gradient-to-r from-pink-500 to-yellow-500 text-white text-center font-bold rounded-md cursor-pointer"/>
-          <button onClick={handleClose} className="mt-1 bg-gradient-to-r from-pink-500 to-yellow-500 text-white text-center font-bold rounded-md">Close</button>
+          <input type="submit" value="Submit" className={buttonModalStyle}/>
+          <Button onClick={handleClose} className={buttonModalStyle}>Close</Button>
         </form>
         
       </Modal>
