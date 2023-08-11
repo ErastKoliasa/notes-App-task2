@@ -4,6 +4,9 @@ import { editNote, Note } from "../../../redux/action";
 import Modal from "../../Modal/Modal";
 import Button from "../../Buttons/Button";
 import { ModalStyles } from "../TablesContainer";
+import Input from "../../Input/Input";
+import TextArea from "../../TextArea/TextArea";
+import Select from "../../Select/Select";
 
 interface ActiveNotesProps {
   notes: Note[];
@@ -17,6 +20,7 @@ interface ActiveNotesProps {
   cleanField: () => void;
   buttonActiveStyle: string;
   modalStyles: ModalStyles;
+  optionsModal: string[];
 }
 
 const ActiveNotes: React.FC<ActiveNotesProps> = ({
@@ -31,6 +35,7 @@ const ActiveNotes: React.FC<ActiveNotesProps> = ({
   cleanField,
   buttonActiveStyle,
   modalStyles,
+  optionsModal,
 }) => {
   const [modalActive, setModalActive] = useState(false);
   const dispatch = useDispatch();
@@ -98,15 +103,11 @@ const ActiveNotes: React.FC<ActiveNotesProps> = ({
         <h2 className={modalStyles.h2}>Edit a Note</h2>
         <form onSubmit={handleSubmit} className="modal__noteForm-edit">
           <label htmlFor="noteName">Name:</label>
-          <input type="text" id="noteName" value={note.name} onChange={handleChangeName} required className={modalStyles.input}/>
+          <Input type={"text"} id={"noteName"} value={note.name} onChange={handleChangeName} className={modalStyles.input}></Input>
           <label htmlFor="noteContent">Content:</label>
-          <textarea name="noteContent" id="noteContent" value={note.content} onChange={handleChangeContent} required className={modalStyles.textarea}></textarea>
+          <TextArea name="noteContent" id="noteContent" value={note.content} onChange={handleChangeContent} className={modalStyles.textarea}></TextArea>
           <label htmlFor="noteCategory">Category:</label>
-          <select name="noteCategory" id="noteCategory" value={note.category} onChange={handleChangeCategory} required className={modalStyles.select}>
-            <option value="Task">Task</option>
-            <option value="Random Thought">Random Thought</option>
-            <option value="Idea">Idea</option>
-          </select>
+          <Select name="noteCategory" id="noteCategory" value={note.category} onChange={handleChangeCategory} className={modalStyles.select} options={optionsModal}></Select>
           <input type="submit" value="Submit" className={modalStyles.button}/>
           <Button onClick={handleClose} className={modalStyles.button}>Close</Button>
         </form>

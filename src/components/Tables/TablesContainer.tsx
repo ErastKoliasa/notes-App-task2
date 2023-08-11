@@ -8,6 +8,9 @@ import { Note } from "../../redux/action";
 import SummaryTable from "./SummaryTable/SummaryTable";
 import { NotesState } from "../../redux/reducer";
 import Button from "../Buttons/Button";
+import Input from "../Input/Input";
+import TextArea from "../TextArea/TextArea";
+import Select from "../Select/Select";
 
 export const buttonActiveStyle: string = "m-3 mt-3 p-2 bg-gradient-to-r from-pink-500 to-yellow-500 text-white text-center rounded-md";
 
@@ -27,6 +30,8 @@ export const modalStyles : ModalStyles = {
   button: "mt-1 p-2 bg-gradient-to-r from-pink-500 to-yellow-500 text-white text-center font-bold rounded-md cursor-pointer",
 }
 
+const optionsModal: string[] = ["Task", "Random Thought", "Idea"]
+
 const TableContainer = () => {
   const notes = useSelector((state: NotesState) => state.notes);
   const [modalActive, setModalActive] = useState(false);
@@ -41,8 +46,6 @@ const TableContainer = () => {
   });
   const dispatch = useDispatch();
   
-  
-
   const cleanField = () => {
     setNote({
       id: 0,
@@ -126,6 +129,7 @@ const TableContainer = () => {
         cleanField={cleanField}
         buttonActiveStyle = {buttonActiveStyle}
         modalStyles={modalStyles}
+        optionsModal={optionsModal}
       />
       <div className="grid place-content-end">
         <Button onClick={handleAdd} className={buttonActiveStyle}>Add Note</Button>
@@ -136,16 +140,12 @@ const TableContainer = () => {
         <h2 className={modalStyles.h2}>Add a Note</h2>
         <form onSubmit={handleAddNote} className="modal__noteForm-add">
           <label htmlFor="noteName">Name:</label>
-          <input type="text" id="noteName" value={note.name} onChange={handleChangeName} required className={modalStyles.input}/>
+          <Input type={"text"} id={"noteName"} value={note.name} onChange={handleChangeName} className={modalStyles.input}></Input>
           <label htmlFor="noteContent">Content:</label>
-          <textarea name="noteContent" id="noteContent" value={note.content} onChange={handleChangeContent} required className={modalStyles.textarea}></textarea>
+          <TextArea name={"noteContent"} id={"noteContent"} value={note.content} onChange={handleChangeContent} className={modalStyles.textarea}></TextArea>
           <label htmlFor="noteCategory">Category:</label>
-          <select name="noteCategory" id="noteCategory" value={note.category} onChange={handleChangeCategory} required className={modalStyles.select}>
-            <option value="Task">Task</option>
-            <option value="Random Thought">Random Thought</option>
-            <option value="Idea">Idea</option>
-          </select>
-          <input type="submit" value="Add" className={modalStyles.button} />
+          <Select name={"noteCategory"} id={"noteCategory"} value={note.category} onChange={handleChangeCategory} className={modalStyles.select} options={optionsModal}></Select>
+          <Input type={"submit"} value={"Add"} className={modalStyles.button}></Input>
           <Button onClick={handleClose} className={modalStyles.button}>Close</Button>
         </form>
       </Modal>
