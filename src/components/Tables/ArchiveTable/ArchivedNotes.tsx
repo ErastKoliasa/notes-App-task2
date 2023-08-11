@@ -8,9 +8,9 @@ interface ArchivedNotesProps {
   handleArchive: (id: number) => void;
 }
 
-const ArchivedNotes: React.FC<ArchivedNotesProps> = ({ notes, handleDelete, handleArchive }) => {
-  const buttonStyle: string = "mt-1 mr-1.5 bg-gradient-to-r from-yellow-500 to-pink-500 text-white text-center rounded-md";
+export const buttonArchieveStyle: string = "m-3 p-2 bg-gradient-to-r from-yellow-500 to-pink-500 text-white text-center rounded-md";
 
+const ArchivedNotes: React.FC<ArchivedNotesProps> = ({ notes, handleDelete, handleArchive }) => {
   return (
     <div>
       <h1 className="my-10 text-4xl text-orange-600 text-center font-bold">Archive Notes</h1>
@@ -36,8 +36,8 @@ const ArchivedNotes: React.FC<ArchivedNotesProps> = ({ notes, handleDelete, hand
                   <td className="line-through">{note.category}</td>
                   <td className="line-through">{note.datesMentioned.map((date) => `${date} `)}</td>
                   <td className="flex flex-col">
-                    <Button onClick={() => handleDelete(note.id)} className={buttonStyle}>Delete</Button>
-                    <Button onClick={() => handleArchive(note.id)} className={buttonStyle}>Unarchive</Button>
+                    <Button onClick={() => handleDelete(note.id)} className={buttonArchieveStyle}>Delete</Button>
+                    <Button onClick={() => handleArchive(note.id)} className={buttonArchieveStyle}>Unarchive</Button>
                   </td>
                 </tr>
               );
