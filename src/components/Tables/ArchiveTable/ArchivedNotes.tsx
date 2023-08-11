@@ -1,11 +1,14 @@
 import React from "react";
 import { Note } from "../../../redux/action";
+import Button from "../../Buttons/Button";
 
 interface ArchivedNotesProps {
   notes: Note[];
   handleDelete: (id: number) => void;
   handleArchive: (id: number) => void;
 }
+
+export const buttonArchieveStyle: string = "m-3 p-2 bg-gradient-to-r from-yellow-500 to-pink-500 text-white text-center rounded-md";
 
 const ArchivedNotes: React.FC<ArchivedNotesProps> = ({ notes, handleDelete, handleArchive }) => {
   return (
@@ -33,8 +36,8 @@ const ArchivedNotes: React.FC<ArchivedNotesProps> = ({ notes, handleDelete, hand
                   <td className="line-through">{note.category}</td>
                   <td className="line-through">{note.datesMentioned.map((date) => `${date} `)}</td>
                   <td className="flex flex-col">
-                    <button onClick={() => handleDelete(note.id)} className="mt-1 mr-1.5 bg-gradient-to-r from-yellow-500 to-pink-500 text-white text-center rounded-md">Delete</button>
-                    <button onClick={() => handleArchive(note.id)} className="mt-1 mr-1.5 bg-gradient-to-r from-yellow-500 to-pink-500 text-white text-center rounded-md">Unarchive</button>
+                    <Button onClick={() => handleDelete(note.id)} className={buttonArchieveStyle}>Delete</Button>
+                    <Button onClick={() => handleArchive(note.id)} className={buttonArchieveStyle}>Unarchive</Button>
                   </td>
                 </tr>
               );

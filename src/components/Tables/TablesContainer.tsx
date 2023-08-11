@@ -7,6 +7,30 @@ import Modal from "../Modal/Modal";
 import { Note } from "../../redux/action";
 import SummaryTable from "./SummaryTable/SummaryTable";
 import { NotesState } from "../../redux/reducer";
+import Button from "../Buttons/Button";
+import Input from "../Input/Input";
+import TextArea from "../TextArea/TextArea";
+import Select from "../Select/Select";
+
+export const buttonActiveStyle: string = "m-3 mt-3 p-2 bg-gradient-to-r from-pink-500 to-yellow-500 text-white text-center rounded-md";
+
+export interface ModalStyles {
+  h2: string;
+  input: string;
+  textarea: string;
+  select: string;
+  button: string;
+}
+
+export const modalStyles : ModalStyles = {
+  h2: "text-2xl m-3 text-pink-700 text-center font-bold",
+  input: "px-3 py-2 border border-slate-400 rounded-md text-sm shadow-sm focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 focus:invalid:border-pink-500 focus:invalid:ring-pink-500",
+  textarea: "px-3 py-2  border border-slate-400 rounded-md text-sm shadow-sm focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 focus:invalid:border-pink-500 focus:invalid:ring-pink-500",
+  select: "px-3 py-2 border border-slate-400 rounded-md text-sm shadow-sm focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500",
+  button: "mt-1 p-2 bg-gradient-to-r from-pink-500 to-yellow-500 text-white text-center font-bold rounded-md cursor-pointer",
+}
+
+const optionsModal: string[] = ["Task", "Random Thought", "Idea"]
 
 const TableContainer = () => {
   const notes = useSelector((state: NotesState) => state.notes);
@@ -21,7 +45,7 @@ const TableContainer = () => {
     archived: false,
   });
   const dispatch = useDispatch();
-
+  
   const cleanField = () => {
     setNote({
       id: 0,
@@ -103,32 +127,26 @@ const TableContainer = () => {
         handleChangeContent={handleChangeContent}
         handleChangeCategory={handleChangeCategory}
         cleanField={cleanField}
+        buttonActiveStyle = {buttonActiveStyle}
+        modalStyles={modalStyles}
+        optionsModal={optionsModal}
       />
       <div className="grid place-content-end">
-        <button onClick={handleAdd} className="m-5 p-3 bg-gradient-to-r from-pink-500 to-yellow-500 text-white text-center font-bold rounded-md">Add Note</button>
+        <Button onClick={handleAdd} className={buttonActiveStyle}>Add Note</Button>
       </div>
       <ArchivedNotes notes={notes} handleDelete={handleDelete} handleArchive={handleArchive} />
       <SummaryTable notes={notes} />
       <Modal active={modalActive}>
-        <h2 className="text-2xl m-3 text-pink-700 text-center font-bold">Add a Note</h2>
+        <h2 className={modalStyles.h2}>Add a Note</h2>
         <form onSubmit={handleAddNote} className="modal__noteForm-add">
           <label htmlFor="noteName">Name:</label>
-          <input type="text" id="noteName" value={note.name} onChange={handleChangeName} required className="px-3 py-2 border border-slate-400 rounded-md text-sm shadow-sm 
-                      focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 
-                      focus:invalid:border-pink-500 focus:invalid:ring-pink-500"/>
+          <Input type={"text"} id={"noteName"} value={note.name} onChange={handleChangeName} className={modalStyles.input}></Input>
           <label htmlFor="noteContent">Content:</label>
-          <textarea name="noteContent" id="noteContent" value={note.content} onChange={handleChangeContent} required className="px-3 py-2  border border-slate-400 rounded-md text-sm shadow-sm 
-                      focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500
-                      focus:invalid:border-pink-500 focus:invalid:ring-pink-500"></textarea>
+          <TextArea name={"noteContent"} id={"noteContent"} value={note.content} onChange={handleChangeContent} className={modalStyles.textarea}></TextArea>
           <label htmlFor="noteCategory">Category:</label>
-          <select name="noteCategory" id="noteCategory" value={note.category} onChange={handleChangeCategory} required className="px-3 py-2 border border-slate-400 rounded-md text-sm shadow-sm 
-                      focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500">
-            <option value="Task">Task</option>
-            <option value="Random Thought">Random Thought</option>
-            <option value="Idea">Idea</option>
-          </select>
-          <input type="submit" value="Add" className="mt-3 bg-gradient-to-r from-pink-500 to-yellow-500 text-white text-center font-bold rounded-md cursor-pointer" />
-          <button onClick={handleClose} className="mt-1 bg-gradient-to-r from-pink-500 to-yellow-500 text-white text-center font-bold rounded-md">Close</button>
+          <Select name={"noteCategory"} id={"noteCategory"} value={note.category} onChange={handleChangeCategory} className={modalStyles.select} options={optionsModal}></Select>
+          <Input type={"submit"} value={"Add"} className={modalStyles.button}></Input>
+          <Button onClick={handleClose} className={modalStyles.button}>Close</Button>
         </form>
       </Modal>
     </div>

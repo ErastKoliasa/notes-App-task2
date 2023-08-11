@@ -2,6 +2,11 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { editNote, Note } from "../../../redux/action";
 import Modal from "../../Modal/Modal";
+import Button from "../../Buttons/Button";
+import { ModalStyles } from "../TablesContainer";
+import Input from "../../Input/Input";
+import TextArea from "../../TextArea/TextArea";
+import Select from "../../Select/Select";
 
 interface ActiveNotesProps {
   notes: Note[];
@@ -13,6 +18,9 @@ interface ActiveNotesProps {
   note: Note;
   setNote: React.Dispatch<React.SetStateAction<Note>>;
   cleanField: () => void;
+  buttonActiveStyle: string;
+  modalStyles: ModalStyles;
+  optionsModal: string[];
 }
 
 const ActiveNotes: React.FC<ActiveNotesProps> = ({
@@ -25,6 +33,9 @@ const ActiveNotes: React.FC<ActiveNotesProps> = ({
   note,
   setNote,
   cleanField,
+  buttonActiveStyle,
+  modalStyles,
+  optionsModal,
 }) => {
   const [modalActive, setModalActive] = useState(false);
   const dispatch = useDispatch();
@@ -76,9 +87,9 @@ const ActiveNotes: React.FC<ActiveNotesProps> = ({
                   <td>{note.category}</td>
                   <td>{note.datesMentioned.map((date) => `${date} `)}</td>
                   <td className="flex flex-col">
-                    <button onClick={() => handleEdit(note.id)} className="mt-1 mr-1.5 bg-gradient-to-r from-pink-500 to-yellow-500 text-white text-center rounded-md">Edit</button>
-                    <button onClick={() => handleDelete(note.id)} className="mt-1 mr-1.5 bg-gradient-to-r from-pink-500 to-yellow-500 text-white text-center rounded-md">Delete</button>
-                    <button onClick={() => handleArchive(note.id)} className="mt-1 mr-1.5 bg-gradient-to-r from-pink-500 to-yellow-500 text-white text-center rounded-md">Archive</button>
+                    <Button onClick={() => handleEdit(note.id)} className={buttonActiveStyle}>Edit</Button>
+                    <Button onClick={() => handleDelete(note.id)} className={buttonActiveStyle}>Delete</Button>
+                    <Button onClick={() => handleArchive(note.id)} className={buttonActiveStyle}>Archive</Button>
                   </td>
                 </tr>
               );
@@ -89,25 +100,16 @@ const ActiveNotes: React.FC<ActiveNotesProps> = ({
       </table>
 
       <Modal active={modalActive}>
-        <h2 className="text-2xl m-3 text-pink-700 text-center font-bold">Edit a Note</h2>
+        <h2 className={modalStyles.h2}>Edit a Note</h2>
         <form onSubmit={handleSubmit} className="modal__noteForm-edit">
           <label htmlFor="noteName">Name:</label>
-          <input type="text" id="noteName" value={note.name} onChange={handleChangeName} required className="px-3 py-2 border border-slate-400 rounded-md text-sm shadow-sm 
-                      focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 
-                      focus:invalid:border-pink-500 focus:invalid:ring-pink-500"/>
+          <Input type={"text"} id={"noteName"} value={note.name} onChange={handleChangeName} className={modalStyles.input}></Input>
           <label htmlFor="noteContent">Content:</label>
-          <textarea name="noteContent" id="noteContent" value={note.content} onChange={handleChangeContent} required className="px-3 py-2  border border-slate-400 rounded-md text-sm shadow-sm 
-                      focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500
-                      focus:invalid:border-pink-500 focus:invalid:ring-pink-500"></textarea>
+          <TextArea name="noteContent" id="noteContent" value={note.content} onChange={handleChangeContent} className={modalStyles.textarea}></TextArea>
           <label htmlFor="noteCategory">Category:</label>
-          <select name="noteCategory" id="noteCategory" value={note.category} onChange={handleChangeCategory} required className="px-3 py-2 border border-slate-400 rounded-md text-sm shadow-sm 
-                      focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500">
-            <option value="Task">Task</option>
-            <option value="Random Thought">Random Thought</option>
-            <option value="Idea">Idea</option>
-          </select>
-          <input type="submit" value="Submit" className="mt-3 bg-gradient-to-r from-pink-500 to-yellow-500 text-white text-center font-bold rounded-md cursor-pointer"/>
-          <button onClick={handleClose} className="mt-1 bg-gradient-to-r from-pink-500 to-yellow-500 text-white text-center font-bold rounded-md">Close</button>
+          <Select name="noteCategory" id="noteCategory" value={note.category} onChange={handleChangeCategory} className={modalStyles.select} options={optionsModal}></Select>
+          <input type="submit" value="Submit" className={modalStyles.button}/>
+          <Button onClick={handleClose} className={modalStyles.button}>Close</Button>
         </form>
         
       </Modal>
