@@ -1,59 +1,31 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import Button from '../components/Buttons/Button';
+import '../index.css'
+import { buttonArchieveStyle } from '../components/Tables/ArchiveTable/ArchivedNotes';
+import { buttonActiveStyle, modalStyles} from '../components/Tables/TablesContainer';
 
-import { Button } from './Button';
-
-// More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
-const meta = {
-  title: 'Example/Button',
-  component: Button,
-  parameters: {
-    // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/react/configure/story-layout
-    layout: 'centered',
-  },
-  // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/react/writing-docs/autodocs
+const meta: Meta<typeof Button> = {
+  title: 'App/Button',
+  component: Button, 
   tags: ['autodocs'],
-  // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
-  argTypes: {
-    backgroundColor: { control: 'color' },
-  },
-} satisfies Meta<typeof Button>;
+}
 
 export default meta;
+
 type Story = StoryObj<typeof meta>;
 
-// More on writing stories with args: https://storybook.js.org/docs/react/writing-stories/args
-export const Primary: Story = {
+export const ActiveButton: Story = {
   args: {
-    primary: true,
-    label: 'Button',
-  },
-};
-
-export const Secondary: Story = {
-  args: {
-    label: 'Button',
-  },
-};
-
-export const Large: Story = {
-  args: {
-    size: 'large',
-    label: 'Button',
-  },
-};
-
-export const Small: Story = {
-  args: {
-    size: 'small',
-    label: 'Button',
-  },
-};
-
-
-export const Warning: Story = {
-  args: {
-    primary: true,
-    label: 'Delete now',
-    backgroundColor: 'red',
+    children: "Some text",
+    className: buttonActiveStyle,
   }
 };
+
+export const ArchiveButton: Story = {
+  args: {...ActiveButton.args, className: buttonArchieveStyle}
+}
+
+export const ModalButton: Story = {
+  args: {...ActiveButton.args, className: modalStyles.button}
+}
+
